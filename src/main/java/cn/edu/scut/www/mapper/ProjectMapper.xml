@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scut.www.mapper.ProjectMapper">
+    <select id="getAllProject" resultType = "cn.edu.scut.www.vo.ProjectVO">
+        SELECT
+            p.ProjectID,
+            p.LabID,
+            p.LeaderID,
+            p.ProjectName,
+            p.ResearchContent,
+            p.TotalFunding,
+            p.StartDate,
+            p.EndDate,
+            s.SubProjectID,
+            s.LeaderID AS SubProjectLeaderID,
+            s.SubProjectNumber,
+            s.EndDateRequirement,
+            s.AvailableFunds AS SubProjectAvailableFunds,
+            s.TechnicalIndicators,
+            m.MemberID,
+            m.EmployeeID AS ProjectMemberID,
+            m.JoinDate AS ProjectMemberJoinDate,
+            m.Workload AS ProjectMemberWorkload,
+            m.AvailableFunds AS ProjectMemberAvailableFunds
+        FROM
+            Project p
+                LEFT JOIN SubProject s ON p.ProjectID = s.ProjectID
+                LEFT JOIN ProjectMember m ON p.ProjectID = m.ProjectID;
+    </select>
+</mapper>
